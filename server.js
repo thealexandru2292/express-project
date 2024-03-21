@@ -15,6 +15,18 @@ const friends = [
     }
 ];
 
+//midlware = a function that is running between the request and our server that takes some actions: validation, checking if the user is authorized, etc. 
+app.use((req, res, next) => {
+    //the start time of the request begins here and finishes after next, when next is executed it finds our routing url, 
+    //let's say app.get('/friends) executes it, respondes and after next() all the actions ends
+    const start = Date.now();
+    next(); // this is mandatory to call if we want to responde to client
+    //actions go here ...
+    //this is the last change to measure our lasting time of our request. 
+    const delta = Date.now() - start;
+    console.log(`${req.method} ${req.url} ${delta}ms`);
+})
+
 //express automatically sets the Content-Type for us, in this case will set to text/html; charset=utf-8
 
 /* app.get('/', (req, res) => { 
