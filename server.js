@@ -1,5 +1,5 @@
 const express = require('express');
-
+const path = require('path');
 const friendsRouter = require('./routes/friends.router');
 const messagesRouter = require('./routes/messages.router');
 
@@ -18,6 +18,11 @@ app.use((req, res, next) => {
     const delta = Date.now() - start;
     console.log(`${req.method} ${req.baseUrl}${req.url} ${delta}ms`);
 });
+//when we want to support a HTML page we use our expre static middelware
+console.log('PATH 0: ',path.join(__dirname));
+console.log('PATH: ',path.join(__dirname, 'public'));
+app.use('/site', express.static(path.join(__dirname, 'public'))); 
+
 //register our JSON parse middleware that will parse our post body in json format
 // becayse we do app.use(express.json()) in app.post() method we will be able to get the body as an object and acces its params like req.body.name even if name is null
 app.use(express.json());

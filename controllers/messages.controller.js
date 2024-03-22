@@ -6,7 +6,7 @@ const path = require('path');
 function getMessages(req, res){
     //__dirname = current folder
     // '..' = one level up
-    res.sendFile(path.join(__dirname, '..', 'public', 'skymountain.webp'))
+    res.sendFile(path.join(__dirname, '..', 'public', 'images', 'skymountain.webp'))
     //res.send('<ul> <li> Hello Albert!</li></ul>');
 }
 
