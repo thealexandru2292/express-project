@@ -4,9 +4,13 @@ const path = require('path');
 // example on windows: \folder\file.jpg
 
 function getMessages(req, res){
+    res.render('messages', {
+        title: 'Messages to my Friends',
+        friend: 'Elon Musk'
+    });
     //__dirname = current folder
     // '..' = one level up
-    res.sendFile(path.join(__dirname, '..', 'public', 'images', 'skymountain.webp'))
+    //res.sendFile(path.join(__dirname, '..', 'public', 'images', 'skymountain.webp'))
     //res.send('<ul> <li> Hello Albert!</li></ul>');
 }
 
