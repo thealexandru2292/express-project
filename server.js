@@ -5,6 +5,8 @@ const messagesRouter = require('./routes/messages.router');
 
 const app = express();
 
+app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'views'));
 const PORT = 3000;
 
 //midlware = a function that is running between the request and our server that takes some actions: validation, checking if the user is authorized, etc. 
@@ -18,14 +20,20 @@ app.use((req, res, next) => {
     const delta = Date.now() - start;
     console.log(`${req.method} ${req.baseUrl}${req.url} ${delta}ms`);
 });
-//when we want to support a HTML page we use our expre static middelware
-console.log('PATH 0: ',path.join(__dirname));
-console.log('PATH: ',path.join(__dirname, 'public'));
+//when we want to support a HTML page we use our express static middelware
+//because we mounted this path /site static fieles from index.hbs file will look into the site/css/style.css or site/images/skymountain.webp
 app.use('/site', express.static(path.join(__dirname, 'public'))); 
 
 //register our JSON parse middleware that will parse our post body in json format
 // becayse we do app.use(express.json()) in app.post() method we will be able to get the body as an object and acces its params like req.body.name even if name is null
 app.use(express.json());
+
+app.get('/', (req, res) => {
+    res.render('index', {
+        title: 'My Friends Are VERYY Clever',
+        caption: 'Let\'s go skiing!'
+    });
+});
 
 app.use('/friends', friendsRouter); // use friendsRouter middleware
 
